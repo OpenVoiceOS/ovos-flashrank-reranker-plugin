@@ -1,17 +1,28 @@
 # Changelog
 
-## [0.0.0a2](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/tree/0.0.0a2) (2024-10-25)
+## [0.0.2a1](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/tree/0.0.2a1) (2026-09-25)
 
-[Full Changelog](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/compare/cecb23ffecd5fcff03811f76f90b7305664a3b1c...0.0.0a2)
-
-**Implemented enhancements:**
-
-- feat/summarizer [\#2](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/pull/2) ([JarbasAl](https://github.com/JarbasAl))
-- feat/initial\_implementation [\#1](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/pull/1) ([JarbasAl](https://github.com/JarbasAl))
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/compare/0.0.1a2...0.0.2a1)
 
 **Merged pull requests:**
 
-- feat:semver [\#3](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/pull/3) ([JarbasAl](https://github.com/JarbasAl))
+- fix: the evidence entry point names FlashRankEvidenceSolverPlugin; pyproject-only packaging [\#16](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/pull/16) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
+## [0.0.1a2](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/tree/0.0.1a2) (2026-07-30)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/compare/0.0.1a1...0.0.1a2)
+
+**Merged pull requests:**
+
+- docs: rewrite README in Simplified Technical English [\#12](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/pull/12) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.0.1a1](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/tree/0.0.1a1) (2025-12-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/compare/0.0.0...0.0.1a1)
+
+**Merged pull requests:**
+
+- Configure Renovate [\#4](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/pull/4) ([renovate[bot]](https://github.com/apps/renovate))
 
 
 

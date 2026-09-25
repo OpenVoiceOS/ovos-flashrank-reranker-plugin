@@ -1,26 +1,18 @@
-# FlashRankMultipleChoiceSolver for OVOS
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/TigreGotico/ovos-flashrank-reranker-plugin)
 
-The `FlashRankMultipleChoiceSolver` plugin is designed for the Open Voice OS (OVOS) platform to help select the best
-answer to a question from a list of options. This plugin utilizes the FlashRank library to evaluate and rank
-multiple-choice answers based on their relevance to the given query.
+# FlashRankReranker OVOS Plugin
 
-## Features
+This plugin adds FlashRank-based reranking to the Open Voice OS (OVOS) platform. It picks the best answer to a question from a list of candidate answers. It can also extract the most relevant sentence from a text passage. It uses the [FlashRank](https://github.com/PrithivirajDamodaran/FlashRank) library to score and rank candidates by relevance to the query.
 
-- **Rerank Options**: Reranks a list of options based on their relevance to the query.
-- **Customizable Model**: Allows the use of different ranking models.
-- **Seamless Integration**: Designed to work with OVOS plugin manager.
+## Install
 
-ReRanking is a technique used to refine a list of potential answers by evaluating their relevance to a given query.
-This process is crucial in scenarios where multiple options or responses need to be assessed to determine the most
-appropriate one.
-
-In retrieval chatbots, ReRanking helps in selecting the best answer from a set of retrieved documents or options,
-enhancing the accuracy of the response provided to the user.
+```bash
+pip install ovos-flashrank-reranker-plugin
+```
 
 ## Configuration
 
-`MultipleChoiceSolver` are integrated into the OVOS Common Query framework, where they are used to select the most
-relevant answer from a set of multiple skill responses.
+The `common_query` framework in OVOS uses a `MultipleChoiceSolver` to pick the best answer from several skill responses. Set this plugin as the reranker:
 
 ```json
 "common_query": {
@@ -30,30 +22,26 @@ relevant answer from a set of multiple skill responses.
 }
 ```
 
-> NOTE: enabling this on a raspberry pi will introduce up to 1 second of extra latency in common query pipeline
+> NOTE: On a Raspberry Pi, this adds up to 1 second of extra latency to the common query pipeline.
 
-### Available Models
+### Available models
 
-Below is the list of models supported as of now, by default `ms-marco-MultiBERT-L-12` is used due to being multilingual:
+The default model is `ms-marco-MultiBERT-L-12`, because it supports many languages.
 
-| Model Name                                       | Description                                                                                                                                                                                                                                                                                                                                                                    |
-|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `ms-marco-TinyBERT-L-2-v2`             | [Model card](https://huggingface.co/cross-encoder/ms-marco-TinyBERT-L-2) Trained on the MS Marco Passage Ranking task. This model encodes queries and ranks passages retrieved from large-scale datasets like MS MARCO, focusing on machine reading comprehension and passage ranking.                                                                                         |
-| `ms-marco-MiniLM-L-12-v2`                        | [Model card](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-12-v2) Trained on MS MARCO Passage Ranking, it performs well for Information Retrieval tasks, encoding queries and sorting passages. It offers high performance with a lower documents per second rate compared to other versions.                                                                         |
-| `ms-marco-MultiBERT-L-12` (default)                        | Multi-lingual, [supports 100+ languages](https://github.com/google-research/bert/blob/master/multilingual.md#list-of-languages)                                                                                                                                                                                                                                                |
-| `ce-esci-MiniLM-L12-v2`                          | [FT on Amazon ESCI dataset](https://github.com/amazon-science/esci-data) Fine-tuned on the Amazon ESCI dataset, which includes queries in English, Japanese, and Spanish. Designed for semantic search and ranking, this model maps sentences and paragraphs to a 384-dimensional vector space, useful for tasks like clustering and product search in a multilingual context. |
-| `rank-T5-flan` | [Model card](https://huggingface.co/bergum/rank-T5-flan) Best non cross-encoder reranker                                                                                                                                                                                                                                                                                                                       |
-| `rank_zephyr_7b_v1_full` (4-bit-quantised GGUF)  | A 7B parameter GPT-like model fine-tuned on task-specific listwise reranking data. It is the state-of-the-art open-source reranking model for several datasets                                                                                                                                                                                                                 |
+| Model name | Description |
+|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ms-marco-TinyBERT-L-2-v2` | [Model card](https://huggingface.co/cross-encoder/ms-marco-TinyBERT-L-2): trained on the MS MARCO passage ranking task, for machine reading comprehension |
+| `ms-marco-MiniLM-L-12-v2` | [Model card](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-12-v2): trained on MS MARCO passage ranking, with fewer documents ranked per second than some other versions but higher accuracy |
+| `ms-marco-MultiBERT-L-12` (default) | Multilingual: [supports 100+ languages](https://github.com/google-research/bert/blob/master/multilingual.md#list-of-languages) |
+| `ce-esci-MiniLM-L12-v2` | [Fine-tuned on the Amazon ESCI dataset](https://github.com/amazon-science/esci-data) for English, Japanese, and Spanish queries: maps text to a 384-dimensional vector space for clustering and product search |
+| `rank-T5-flan` | [Model card](https://huggingface.co/bergum/rank-T5-flan): the best-performing non-cross-encoder reranker in this list |
+| `rank_zephyr_7b_v1_full` (4-bit-quantized GGUF) | A 7B-parameter GPT-like model fine-tuned on task-specific listwise reranking data |
 
-## Standalone Usage
+## Usage
 
-#### FlashRankMultipleChoiceSolver
+### FlashRankMultipleChoiceSolver
 
-FlashRankMultipleChoiceSolver is designed to select the best answer to a question from a list of options.
-
-In the context of retrieval chatbots, FlashRankMultipleChoiceSolver is useful for scenarios where a user query results
-in a list of predefined answers or options.
-The solver ranks these options based on their relevance to the query and selects the most suitable one.
+`FlashRankMultipleChoiceSolver` picks the best answer to a question from a list of options. In a retrieval chatbot, a user query returns a list of predefined answers. The solver ranks these options by relevance to the query and returns the most suitable one.
 
 ```python
 from ovos_flashrank_solver import FlashRankMultipleChoiceSolver
@@ -69,23 +57,16 @@ print(a)
 # 2024-07-22 15:03:10.297 - OVOS - __main__:retrieve_from_corpus:70 - DEBUG - Rank 3 (score: 0.0): very fast
 # [(0.7198747, 'the speed of light is C'), (0.0, '10m/s'), (0.0, 'very fast')]
 
-# NOTE: select_answer is part of the MultipleChoiceSolver base class and uses rerank internally
+# NOTE: select_answer is part of the MultipleChoiceSolver base class, and it uses rerank internally
 a = solver.select_answer("what is the speed of light", [
     "very fast", "10m/s", "the speed of light is C"
 ])
 print(a)  # the speed of light is C
 ```
 
-#### FlashRankEvidenceSolverPlugin
+### FlashRankEvidenceSolverPlugin
 
-FlashRankEvidenceSolverPlugin is designed to extract the most relevant sentence from a text passage that answers a given
-question. This plugin uses the FlashRank algorithm to evaluate and rank sentences based on their relevance to the query.
-
-In text extraction and machine comprehension tasks, FlashRankEvidenceSolverPlugin enables the identification of specific
-sentences within a larger body of text that directly address a user's query.
-
-For example, in a scenario where a user queries about the number of rovers exploring Mars, FlashRankEvidenceSolverPlugin
-scans the provided text passage, ranks sentences based on their relevance, and extracts the most informative sentence.
+`FlashRankEvidenceSolverPlugin` extracts the most relevant sentence from a text passage that answers a given question. It uses the FlashRank algorithm to score and rank sentences by relevance to the query.
 
 ```python
 from ovos_flashrank_solver import FlashRankEvidenceSolverPlugin
@@ -117,7 +98,14 @@ print("Answer:", answer)
 
 ```
 
-In this example, `FlashRankEvidenceSolverPlugin` effectively identifies and retrieves the most relevant sentence from
-the provided text that answers the query about the number of rovers exploring Mars.
-This capability is essential for applications requiring information extraction from extensive textual content, such as
-automated research assistants or content summarizers.
+In this example, `FlashRankEvidenceSolverPlugin` finds and returns the sentence from the text passage that answers the query about the number of rovers exploring Mars.
+
+## Related projects
+
+- [ovos-common-query-pipeline-plugin](https://github.com/TigreGotico/ovos-common-query-pipeline-plugin): the OVOS pipeline that uses `MultipleChoiceSolver` plugins like this one to rank answers from multiple skills.
+
+## Credits
+
+![image](https://github.com/user-attachments/assets/809588a2-32a2-406c-98c0-f88bf7753cb4)
+
+This work was sponsored by VisioLab, part of [Royal Dutch Visio](https://visio.org/). Royal Dutch Visio is a test, education, and research center for innovative assistive technology for blind and visually impaired people and professionals. It explores technological developments in voice, VR, and AI, and shares the resulting knowledge with everyone.

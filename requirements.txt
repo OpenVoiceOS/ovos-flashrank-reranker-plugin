@@ -1,2 +1,0 @@
-ovos-plugin-manager
-flashrank>=0.2.8
