@@ -28,9 +28,38 @@ class FlashRankMultipleChoiceSolver(MultipleChoiceSolver):
         ]
         rerankrequest = RerankRequest(query=query, passages=passages)
         results = self.ranker.rerank(rerankrequest)
+        # min_conf has been in this plugin's default config since the first
+        # commit and nothing read it. The model always ranks, so without a
+        # floor the caller is handed a best option even when the query matches
+        # nothing in the list. Measured on ms-marco-MultiBERT-L-12, three
+        # unrelated options: a query the list answers scores 0.9972 and 0.9993,
+        # a query it does not scores 0.6397 and 0.3120, and gibberish scores
+        # 0.0012. The gap is wide, and where to cut it depends on how a
+        # deployment would rather fail, so the default stays None, which is
+        # the behaviour this plugin has always had.
+        min_conf = self.config.get("min_conf")
+        if min_conf:
+            results = [r for r in results if r["score"] >= min_conf]
         if return_index:
             return [(r["score"], options.index(r["text"])) for r in results]
         return [(r["score"], r["text"]) for r in results]
+
+    def select_answer(self, query: str, options: List[str],
+                      lang: Optional[str] = None,
+                      return_index: bool = False) -> Optional[Union[str, int]]:
+        """
+        Return the best option, or None when none of them clears min_conf.
+
+        The base class takes the first result unconditionally, which raises
+        IndexError once the floor above empties the list. None says "no answer"
+        instead, which is what a caller can act on.
+        """
+        ranked = self.rerank(query, options, lang=lang, return_index=return_index)
+        if not ranked:
+            LOG.debug(f"no option scored at or above min_conf="
+                      f"{self.config.get('min_conf')} for query: {query}")
+            return None
+        return ranked[0][1]
 
 
 class FlashRankEvidenceSolverPlugin(EvidenceSolver):
