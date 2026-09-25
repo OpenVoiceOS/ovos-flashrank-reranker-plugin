@@ -1,20 +1,28 @@
 # Changelog
 
-## [0.0.1a2](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/tree/0.0.1a2) (2026-07-30)
+## [0.0.2a1](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/tree/0.0.2a1) (2026-09-25)
 
-[Full Changelog](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/compare/0.0.1a1...0.0.1a2)
-
-**Merged pull requests:**
-
-- docs: rewrite README in Simplified Technical English [\#12](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/pull/12) ([JarbasAl](https://github.com/JarbasAl))
-
-## [0.0.1a1](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/tree/0.0.1a1) (2025-12-18)
-
-[Full Changelog](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/compare/0.0.0...0.0.1a1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/compare/0.0.1a2...0.0.2a1)
 
 **Merged pull requests:**
 
-- Configure Renovate [\#4](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin/pull/4) ([renovate[bot]](https://github.com/apps/renovate))
+- fix: the evidence entry point names FlashRankEvidenceSolverPlugin; pyproject-only packaging [\#16](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/pull/16) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
+## [0.0.1a2](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/tree/0.0.1a2) (2026-07-30)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/compare/0.0.1a1...0.0.1a2)
+
+**Merged pull requests:**
+
+- docs: rewrite README in Simplified Technical English [\#12](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/pull/12) ([JarbasAl](https://github.com/JarbasAl))
+
+## [0.0.1a1](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/tree/0.0.1a1) (2025-12-18)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/compare/0.0.0...0.0.1a1)
+
+**Merged pull requests:**
+
+- Configure Renovate [\#4](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/pull/4) ([renovate[bot]](https://github.com/apps/renovate))
 
 
 
