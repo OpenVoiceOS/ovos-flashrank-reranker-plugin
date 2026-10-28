@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a1](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/tree/0.0.3a1) (2026-10-28)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/compare/0.0.2a1...0.0.3a1)
+
+**Merged pull requests:**
+
+- fix: honour min\_conf, so select\_answer can say it has no answer [\#18](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/pull/18) ([openvoiceos-bot](https://github.com/openvoiceos-bot))
+
 ## [0.0.2a1](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/tree/0.0.2a1) (2026-09-25)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin/compare/0.0.1a2...0.0.2a1)
