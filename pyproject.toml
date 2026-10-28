@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ovos-flashrank-reranker-plugin"
+dynamic = ["version"]
+description = "A question solver plugin for OVOS"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "JarbasAi", email = "jarbasai@mailfence.com"}
+]
+keywords = ["OVOS", "openvoiceos", "plugin", "solver", "reranker", "flashrank"]
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "ovos-plugin-manager",
+    "ovos-utils",
+    "quebra-frases",
+    "flashrank>=0.2.8",
+    # flashrank imports AddedToken from the tokenizers top level, which 1.0 removes
+    "tokenizers<1",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+]
+
+[project.urls]
+Homepage = "https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin"
+
+[project.entry-points."opm.solver.multiple_choice"]
+"ovos-flashrank-reranker-plugin" = "ovos_flashrank_solver:FlashRankMultipleChoiceSolver"
+
+[project.entry-points."opm.solver.reading_comprehension"]
+"ovos-evidence-solver-flashrank" = "ovos_flashrank_solver:FlashRankEvidenceSolverPlugin"
+
+[project.entry-points."opm.solver.summarization"]
+"ovos-summarizer-solver-flashrank" = "ovos_flashrank_solver:FlashRankSummarizer"
+
+[tool.setuptools.dynamic]
+version = {attr = "ovos_flashrank_solver.version.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ovos_flashrank_solver*"]
